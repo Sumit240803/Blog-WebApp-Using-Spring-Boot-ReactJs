@@ -29,7 +29,22 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setPassword(passwordEncoder.encode(password));
         newUser.setRoles("USER");
+        newUser.setAvatar("https://ibb.co/0tp4ygk");
         return userRepo.save(newUser);
+    }
+    public User saveNewAdmin(String username , String email, String password){
+        User user = userRepo.findByUsername(username);
+        if(user!=null){
+            throw new RuntimeException("Username already Present");
+        }
+        User myuser = new User();
+        myuser.setName("admin");
+        myuser.setUsername(username);
+        myuser.setEmail(email);
+        myuser.setPassword(passwordEncoder.encode(password));
+        myuser.setRoles("ADMIN");
+        myuser.setAvatar("https://ibb.co/0tp4ygk");
+        return  userRepo.save(myuser);
     }
 
 }

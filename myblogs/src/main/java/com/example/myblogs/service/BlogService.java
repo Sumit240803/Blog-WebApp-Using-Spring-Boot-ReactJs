@@ -6,6 +6,8 @@ import com.example.myblogs.repositories.BlogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BlogService {
     @Autowired
@@ -17,5 +19,9 @@ public class BlogService {
         blog.setTitle(title);
         blog.setUser(user);
         blogRepo.save(blog);
+    }
+
+    public List<Blogs> getBlogs(Long userId){
+        return blogRepo.findByUserId(userId);
     }
 }

@@ -1,7 +1,10 @@
 package com.example.myblogs.dto;
 
+import com.example.myblogs.models.Blogs;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter

@@ -1,13 +1,14 @@
 package com.example.myblogs.controllers;
 
 
+import com.example.myblogs.dto.AuthResponse;
 import com.example.myblogs.dto.LoginDto;
 import com.example.myblogs.dto.SignUpDto;
 import com.example.myblogs.models.User;
 import com.example.myblogs.service.UserService;
+import com.example.myblogs.utility.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,10 +27,11 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    @Autowired
+    private JwtUtils jwtUtils;
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto){
-        User user = userService.saveNewUser(
+        userService.saveNewUser(
                 signUpDto.getName(),
                 signUpDto.getUsername(),
                 signUpDto.getEmail(),
@@ -44,9 +46,19 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword())
             );
-            return ResponseEntity.ok("Login Successful");
+            String token = jwtUtils.generateToken(loginDto.getUsername());
+            return ResponseEntity.ok(new AuthResponse("Login Success",token));
         }catch (BadCredentialsException e){
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
     }
+    }
+    @PostMapping("/adminRegister")
+    public ResponseEntity<?> adminRegister(@RequestBody SignUpDto signUpDto){
+        userService.saveNewAdmin(
+                signUpDto.getUsername(),
+                signUpDto.getEmail(),
+                signUpDto.getPassword()
+        );
+        return  ResponseEntity.ok("You are now an admin :)");
     }
 }
