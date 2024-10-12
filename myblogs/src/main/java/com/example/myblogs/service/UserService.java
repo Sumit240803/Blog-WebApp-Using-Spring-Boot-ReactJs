@@ -46,5 +46,9 @@ public class UserService {
         myuser.setAvatar("https://ibb.co/0tp4ygk");
         return  userRepo.save(myuser);
     }
+    public void updatePassword(String username ,String password){
+        User user = userRepo.findByUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+    }
 
 }
