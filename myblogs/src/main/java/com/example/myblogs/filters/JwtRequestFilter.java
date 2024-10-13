@@ -1,5 +1,7 @@
 package com.example.myblogs.filters;
 
+import com.example.myblogs.models.User;
+import com.example.myblogs.repositories.UserRepo;
 import com.example.myblogs.service.CustomUserDetailsService;
 import com.example.myblogs.utility.JwtUtils;
 import jakarta.servlet.FilterChain;
@@ -19,7 +21,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
     @Autowired
     private CustomUserDetailsService userDetailsService;
-
     @Autowired
     public JwtRequestFilter(JwtUtils jwtUtils, CustomUserDetailsService userDetailsService) {
         this.jwtUtils = jwtUtils;
@@ -31,13 +32,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if(token!=null && token.startsWith("Bearer ")){
             token = token.substring(7);
+
+
             String username = jwtUtils.getUserName(token);
+
+
             if(username !=null && SecurityContextHolder.getContext().getAuthentication() ==null){
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+
                 if(jwtUtils.validateToken(token,username)){
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                             userDetails , null,userDetails.getAuthorities()
                     );
+
+
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
             }

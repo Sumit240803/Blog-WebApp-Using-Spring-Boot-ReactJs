@@ -1,8 +1,10 @@
 package com.example.myblogs.controllers;
 
 import com.example.myblogs.models.Blogs;
+import com.example.myblogs.models.Comments;
 import com.example.myblogs.models.User;
 import com.example.myblogs.repositories.BlogRepo;
+import com.example.myblogs.repositories.CommentRepo;
 import com.example.myblogs.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,8 @@ public class AdminController {
     private UserRepo userRepo;
     @Autowired
     private BlogRepo blogRepo;
-
+    @Autowired
+    private CommentRepo commentRepo;
     //Fetch All Users in Database
 
     @GetMapping("/allUser")
@@ -44,5 +47,15 @@ public class AdminController {
     public ResponseEntity<String> deleteBlog(@PathVariable Long blogId){
         blogRepo.deleteById(blogId);
         return ResponseEntity.ok("Blog deleted Successfully :)");
+    }
+
+    @GetMapping("/allComments")
+    public ResponseEntity<List<Comments>> getComments(){
+        return ResponseEntity.ok().body(commentRepo.findAll());
+    }
+    @DeleteMapping("/deleteComment/{id}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long id){
+        commentRepo.deleteById(id);
+        return ResponseEntity.ok().body("Comment Deleted");
     }
 }

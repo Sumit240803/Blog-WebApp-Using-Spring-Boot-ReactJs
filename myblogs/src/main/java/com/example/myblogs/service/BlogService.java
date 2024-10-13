@@ -13,11 +13,12 @@ public class BlogService {
     @Autowired
     private BlogRepo blogRepo;
 
-    public void createBlog(String content , String title, User user){
+    public void createBlog(String content , String title, User user,String image){
         Blogs blog = new Blogs();
         blog.setContent(content);
         blog.setTitle(title);
         blog.setUser(user);
+        blog.setImage(image);
         blogRepo.save(blog);
     }
 

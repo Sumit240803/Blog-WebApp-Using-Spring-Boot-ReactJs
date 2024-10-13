@@ -5,6 +5,7 @@ import com.example.myblogs.dto.AuthResponse;
 import com.example.myblogs.dto.LoginDto;
 import com.example.myblogs.dto.SignUpDto;
 import com.example.myblogs.models.User;
+import com.example.myblogs.repositories.UserRepo;
 import com.example.myblogs.service.UserService;
 import com.example.myblogs.utility.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private UserRepo userRepo;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -46,8 +48,9 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword())
             );
+
             String token = jwtUtils.generateToken(loginDto.getUsername());
-            return ResponseEntity.ok(new AuthResponse("Login Success",token));
+            return ResponseEntity.ok().header("Authorization", "Bearer " + token).body(new AuthResponse("Login Success",token));
         }catch (BadCredentialsException e){
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
     }

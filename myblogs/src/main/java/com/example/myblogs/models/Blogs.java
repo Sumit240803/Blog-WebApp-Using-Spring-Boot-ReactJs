@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -24,4 +26,9 @@ public class Blogs {
     @JoinColumn(name = "user_id" , nullable = false)
     @JsonIgnore
     private User user;
+
+    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Comments> comments;
+
+    private String image;
 }

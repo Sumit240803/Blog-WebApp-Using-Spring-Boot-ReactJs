@@ -2,6 +2,7 @@ package com.example.myblogs.service;
 
 import com.example.myblogs.models.User;
 import com.example.myblogs.repositories.UserRepo;
+import com.example.myblogs.utility.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     public User saveNewUser(String name, String username,String email , String password ){
      User user = userRepo.findByUsername(username);
@@ -46,9 +50,12 @@ public class UserService {
         myuser.setAvatar("https://ibb.co/0tp4ygk");
         return  userRepo.save(myuser);
     }
-    public void updatePassword(String username ,String password){
+    public String updatePassword(String username ,String password){
         User user = userRepo.findByUsername(username);
         user.setPassword(passwordEncoder.encode(password));
+
+        userRepo.save(user);
+        return jwtUtils.generateToken(user.getUsername());
     }
 
 }
