@@ -1,7 +1,44 @@
+"use client"
 import Header from '@/app/components/Header';
-import React from 'react';
+import PopupMsg from '@/app/components/PopupMsg';
+import React, { useState } from 'react';
 
 const page = () => {
+  const[formData , setFormData] = useState({name :'' ,username : '',email : '' , password : ''});
+  const handleChange =(event)=>{
+    const {name , value} = event.target;
+    setFormData((prevFromData)=>({...prevFromData , [name]:value}));
+  }
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const[popMsg , setPopMsg] = useState('');
+  const handleOpenPopup = () => {
+    setIsPopupVisible(true);
+  };
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+  };
+  const handleSubmit =async(event)=>{
+    event.preventDefault();
+    console.log(formData);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_NAME}/api/auth/register`,{
+      body :JSON.stringify(formData),
+      method : "POST",
+      headers : {
+      "Content-Type" : "application/json"}
+      },
+    );
+      if(response.ok){
+        setPopMsg("Registration Successfull");
+        handleOpenPopup();
+        setFormData({name :'', username : '' , email : '' , password : ''})
+      }
+    } catch (error) {
+      console.log(error);
+      setPopMsg("Some Error Occurred Please Try Again!")
+      handleOpenPopup();
+    }
+  }
   return (
     <div className="h-fit bg-cover bg-center flex flex-col items-center" style={{ backgroundImage: "url('/pictures/bckground.jpg')" }}>
       {/* Header Section */}
@@ -14,7 +51,7 @@ const page = () => {
         <div className="bg-white opacity-95 border-2 border-black border-opacity-25 rounded-3xl p-10 shadow-lg w-1/3">
           <h2 className="text-3xl font-semibold text-center mb-8">Register</h2>
           
-          <form className="flex flex-col space-y-5">
+          <form className="flex flex-col space-y-5" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="fullName" className="block text-lg font-medium text-gray-700">
                 Full Name
@@ -22,9 +59,11 @@ const page = () => {
               <input
                 type="text"
                 id="fullName"
-                name="fullName"
+                name="name"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 placeholder="Enter your full name"
+                onChange={handleChange}
+                value ={formData.name}
                 required
               />
             </div>
@@ -39,6 +78,8 @@ const page = () => {
                 name="username"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 placeholder="Enter your username"
+                onChange={handleChange}
+                value={formData.username}
                 required
               />
             </div>
@@ -53,6 +94,8 @@ const page = () => {
                 name="email"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 placeholder="Enter your email"
+                onChange={handleChange}
+                value={formData.email}
                 required
               />
             </div>
@@ -67,6 +110,8 @@ const page = () => {
                 name="password"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
                 placeholder="Enter your password"
+                onChange={handleChange}
+                value={formData.password}
                 required
               />
             </div>
@@ -80,6 +125,10 @@ const page = () => {
           </form>
         </div>
       </div>
+      <PopupMsg 
+      message={popMsg}
+      visible={isPopupVisible}
+      onClose={handleClosePopup}/>
     </div>
   );
 };

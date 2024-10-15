@@ -1,6 +1,7 @@
 package com.example.myblogs.dto;
 
 import com.example.myblogs.models.Blogs;
+import com.example.myblogs.models.Comments;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,7 @@ public class UserDto
     private String username;
     private String email;
     private String role;
+    private String avatar;
+    private List<Blogs> blogs;
+    private List<Comments> comments;
 }
