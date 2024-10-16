@@ -1,7 +1,7 @@
 "use client";
-import SideNav from '@/app/components/sideNav';
-import UserNav from '@/app/components/UserNav';
-import UserProfile from '@/app/components/userProfile';
+import SideNav from '@/app/components/SideNav';
+import UserNav from '@/app/components/UserNav'
+import UserProfile from '@/app/components/UserProfile';
 import React, { useEffect, useState } from 'react';
 
 const Profilepage = () => {
@@ -19,7 +19,8 @@ const Profilepage = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data); // Store user data in state
+                setUser(data);
+                localStorage.setItem("username",data.username); // Store user data in state
                 console.log(data);
             } else {
                 console.log("Nothing.");
@@ -42,15 +43,23 @@ const Profilepage = () => {
     }, []);
 
     return (
-        <div className='min-h-screen flex'>
+        <div className=''>
             {isAuthenticated ? (
                 <>
                     {user && (
-                        <main className='flex-grow' >
+                        <main className='min-h-screen flex flex-col' >
                         <div>
-                            <UserNav username={user.username} />
+                            <UserNav username={user.username}  />
                         </div>
-                            <SideNav/>
+                        <div className='flex flex-1'>
+                            
+                            <SideNav  />
+                            <UserProfile className="flex-grow"/>
+                            
+                        </div>
+                        <div>
+
+                        </div>
                         </main>
                     )}
                 </>
