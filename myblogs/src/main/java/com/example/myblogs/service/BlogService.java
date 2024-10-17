@@ -4,6 +4,9 @@ import com.example.myblogs.models.Blogs;
 import com.example.myblogs.models.User;
 import com.example.myblogs.repositories.BlogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +27,10 @@ public class BlogService {
 
     public List<Blogs> getBlogs(Long userId){
         return blogRepo.findByUserId(userId);
+    }
+
+    public List<Blogs> getAllBlogs(int page , int size){
+        Page<Blogs> blogs = blogRepo.findAll(PageRequest.of(page, size));
+        return blogs.getContent();
     }
 }

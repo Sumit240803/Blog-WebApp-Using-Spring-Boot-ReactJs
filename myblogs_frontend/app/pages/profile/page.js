@@ -1,4 +1,5 @@
 "use client";
+import Header from '@/app/components/Header';
 import SideNav from '@/app/components/SideNav';
 import UserNav from '@/app/components/UserNav'
 import UserProfile from '@/app/components/UserProfile';
@@ -49,7 +50,7 @@ const Profilepage = () => {
                     {user && (
                         <main className='min-h-screen flex flex-col' >
                         <div>
-                            <UserNav username={user.username}  />
+                            <Header username={user.username}  />
                         </div>
                         <div className='flex flex-1'>
                             

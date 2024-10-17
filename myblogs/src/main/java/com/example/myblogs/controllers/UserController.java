@@ -51,7 +51,6 @@ public class UserController {
         userDto.setEmail(user.getEmail());
         userDto.setRole(user.getRoles());
         userDto.setBlogs(user.getBlogs());
-        userDto.setComments(user.getComments());
         userDto.setAvatar(user.getAvatar());
         return ResponseEntity.ok(userDto);
     }

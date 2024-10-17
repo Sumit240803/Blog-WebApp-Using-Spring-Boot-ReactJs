@@ -1,5 +1,7 @@
 "use client"
+import Header from '@/app/components/Header';
 import UserNav from '@/app/components/UserNav'
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
@@ -32,14 +34,14 @@ const page = () => {
   return (
     <div>
        <div>
-        <UserNav username={username}/>
+        <Header username={username}/>
        </div>
         <div className='p-4 flex'>
             {userBlog.length>0 ? userBlog.map((blog)=>(
                 <div key={blog.id} className='p-4 m-3 border border-lime-500 bg-black text-white font-semibold text-xl w-1/5'>
                     <h1>{blog.title}</h1>
                     <p className='text-lg font-semibold font-sans'>{blog.content.length >25 ? blog.content.substring(0,25) + "..." : blog.content }</p>
-                    <button className='text-sm font-semibold font-sans'>Read More</button>
+                    <Link href={`/pages/BlogPage/${blog.id}`} className='text-sm font-semibold font-sans'>Read More</Link>
                 </div>
             )) : "No Blogs Right Now"}
         </div>

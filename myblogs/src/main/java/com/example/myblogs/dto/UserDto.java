@@ -18,5 +18,4 @@ public class UserDto
     private String role;
     private String avatar;
     private List<Blogs> blogs;
-    private List<Comments> comments;
 }

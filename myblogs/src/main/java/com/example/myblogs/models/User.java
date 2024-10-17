@@ -2,6 +2,8 @@ package com.example.myblogs.models;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +18,7 @@ import java.util.List;
 		@UniqueConstraint(columnNames = {"username"}),
 		@UniqueConstraint(columnNames = {"email"})
 })
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     // Setters
     @Id
@@ -33,8 +36,4 @@ public class User {
 
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private List<Blogs> blogs;
-
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<Comments> comments;
-
 }
