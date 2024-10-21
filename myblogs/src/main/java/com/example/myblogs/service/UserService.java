@@ -1,14 +1,19 @@
 package com.example.myblogs.service;
 
+import com.example.myblogs.models.Comments;
 import com.example.myblogs.models.User;
+import com.example.myblogs.repositories.CommentRepo;
 import com.example.myblogs.repositories.UserRepo;
 import com.example.myblogs.utility.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 import java.util.Arrays;
+import java.util.List;
 
 
 @Service
@@ -21,7 +26,8 @@ public class UserService {
 
     @Autowired
     private JwtUtils jwtUtils;
-
+    @Autowired
+    private CommentRepo commentRepo;
     public User saveNewUser(String name, String username,String email , String password ){
      User user = userRepo.findByUsername(username);
        if(user!=null) {
@@ -56,6 +62,16 @@ public class UserService {
 
         userRepo.save(user);
         return jwtUtils.generateToken(user.getUsername());
+    }
+
+    public List<User> getUsers(int page , int size){
+        Page<User> users = userRepo.findAll(PageRequest.of(page,size));
+        return users.getContent();
+    }
+
+    public List<Comments> getComments(int page , int size){
+        Page<Comments> comments = commentRepo.findAll(PageRequest.of(page,size));
+        return comments.getContent();
     }
 
 }

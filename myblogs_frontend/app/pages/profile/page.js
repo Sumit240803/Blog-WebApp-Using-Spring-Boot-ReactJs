@@ -1,7 +1,5 @@
 "use client";
 import Header from '@/app/components/Header';
-import SideNav from '@/app/components/SideNav';
-import UserNav from '@/app/components/UserNav'
 import UserProfile from '@/app/components/UserProfile';
 import React, { useEffect, useState } from 'react';
 
@@ -21,10 +19,11 @@ const Profilepage = () => {
             if (response.ok) {
                 const data = await response.json();
                 setUser(data);
-                localStorage.setItem("username",data.username); // Store user data in state
-                console.log(data);
+                localStorage.setItem("username",data.username);
+                localStorage.setItem("user",JSON.stringify(data)); // Store user data in state
+               
             } else {
-                console.log("Nothing.");
+               // console.log("Nothing.");
             }
         } catch (error) {
             console.log(error);
@@ -36,7 +35,7 @@ const Profilepage = () => {
         if (!token) {
             setIsAuthenticated(false);
             // If not authenticated, you might want to handle this case
-            console.log("User is not authenticated.");
+           // console.log("User is not authenticated.");
         } else {
             setIsAuthenticated(true);
             profileData(token); // Pass the token to profileData
@@ -50,11 +49,11 @@ const Profilepage = () => {
                     {user && (
                         <main className='min-h-screen flex flex-col' >
                         <div>
-                            <Header username={user.username}  />
+                            <Header username={user.username} image={user.avatar} />
                         </div>
                         <div className='flex flex-1'>
                             
-                            <SideNav  />
+                           
                             <UserProfile className="flex-grow"/>
                             
                         </div>

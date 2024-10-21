@@ -1,12 +1,13 @@
 "use client"
 import Header from '@/app/components/Header';
-import UserNav from '@/app/components/UserNav'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
-    const username = localStorage.getItem("username");
     const [userBlog , setUserBlog] = useState([]);
+    const username = localStorage.getItem("username");
+    const user = localStorage.getItem("user");
+    const image = JSON.parse(user);
     const userBlogs =async()=>{
 
         try {
@@ -34,7 +35,7 @@ const page = () => {
   return (
     <div>
        <div>
-        <Header username={username}/>
+        <Header username={username} image={image.avatar}/>
        </div>
         <div className='p-4 flex'>
             {userBlog.length>0 ? userBlog.map((blog)=>(
@@ -49,4 +50,4 @@ const page = () => {
   )
 }
 
-export default page
+export default page 

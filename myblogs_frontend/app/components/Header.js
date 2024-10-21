@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const Header = ({username}) => {
+const Header = ({username , image}) => {
   const router = useRouter();
   const handleLogout =()=>{
     try {
@@ -19,24 +19,33 @@ const Header = ({username}) => {
     <div>
 
     {username ?
-        <div className=' bg-black flex justify-between font-semibold font-sans text-xl items-center text-white p-3'>
+        <div className=' bg-emerald-600 opacity-90 flex justify-between font-semibold font-sans text-xl items-center text-white p-3 w-full'>
         <div className='flex items-center pl-4'>
-            <Image src={'/pictures/user.png'} height={40} width={40} />
+          <Link href={'/pages/me'}>
+          <Image src={image} className='w-17 h-10 rounded-full' height={40} width={40} />
+          </Link>  
            <p className='pl-2'>
+           <Link href={'/pages/me'}>
             {username}
+            </Link>
             </p> 
             <Link href={'/pages/profile'} className='px-5'>Profile</Link>
             <Link href={'/pages/myBlogs'}>My Blogs</Link>
+            <Link href='/pages/addBlog' className=' px-5 '>
+        Add Blog
+        </Link>
+       
+
         </div>
         <div>
             <button onClick={handleLogout}>Log Out</button>
         </div>
     </div> : <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
       <div>
-    <Link href="/" className="text-lg font-semibold">
+    <Link href="/" className="text-lg font-semibold pr-4">
       Home
     </Link>
-    <Link href="/pages/BlogPage/All">
+    <Link href="/pages/BlogPage/All" className='font-bold'>
       Blogs
     </Link>
       </div>

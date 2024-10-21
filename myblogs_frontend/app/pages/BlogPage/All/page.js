@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 
 const All = () => {
     const [userName, setUsername] = useState('');
+    const user = localStorage.getItem("user");
+    const image = JSON.parse(user);
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -15,7 +17,7 @@ const All = () => {
   return (
     <div>
         <div>
-            <Header username={userName}/>
+            <Header username={userName} image={image.avatar}/>
         </div>
         <div>
             <UserProfile/>

@@ -93,6 +93,7 @@ public class UserController {
         String userName = authentication.getName();
         User user = userRepo.findByUsername(userName);
         user.setAvatar(avatar);
+        userRepo.save(user);
         return ResponseEntity.ok("Profile Updated Successfully");
     }
 

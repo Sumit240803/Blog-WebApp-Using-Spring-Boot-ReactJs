@@ -29,7 +29,7 @@ const AddComment = ({id}) => {
     <div>
         <div>
 
-            <form className='flex justify-around'>
+            <form className='flex justify-between'>
                 <textarea
                 id='comment'
                 name = "comment"
@@ -37,7 +37,8 @@ const AddComment = ({id}) => {
                 onChange={handleChange}
                 placeholder='Write a comment here'
                 rows={2}
-                className='focus:outline-none border border-black border-opacity-25 p-1'
+                cols={80}
+                className='focus:outline-none bg-black text-white p-1'
                 >
                 </textarea>
                 <button onClick={handlePostComment}> Add </button>

@@ -39,7 +39,7 @@ const page = () => {
         const token = data.token;
        // console.log(token);
         localStorage.setItem("token" , token);
-        router.push("/pages/profile");
+        router.push("/pages/admin/dashboard");
       }else{
         setPopMsg("Some Error Occurred :((");
         handleOpenPopup();
@@ -54,12 +54,8 @@ const page = () => {
 
   return (
     <div className="h-screen bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/pictures/bckground.jpg')" }}>
-      <div className="absolute top-0 w-full">
-        <Header />
-      </div>
-
       <div className="bg-white opacity-90 border-2 border-black border-opacity-25 rounded-3xl p-10 shadow-lg">
-        <h2 className="text-3xl font-semibold text-center mb-8">Login</h2>
+        <h2 className="text-3xl font-semibold text-center mb-8">Admin-Login</h2>
         
           
           <form className="flex flex-col space-y-5" onSubmit={handleSubmit} >
