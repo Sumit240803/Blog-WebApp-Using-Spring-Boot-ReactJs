@@ -9,7 +9,6 @@ const page = () => {
     const[image , setImage] = useState('');
     const[ loading,setLoading] = useState(false);
     const[uploaded , setUploaded] = useState(false);
-    const[message , setShowMessage] = useState(false);
     const handleImage = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -81,7 +80,7 @@ const page = () => {
                          <button onClick={uploadImage} >Update Image</button>
                         : ''}
                          {loading ? "Uploading...." : ''}
-                         {message ? "Image Upload Success Please Refresh To See the Changes!" : ''}
+                        
                     </div>
                 <div className='bg-green-50 shadow-md shadow-purple-400 text-black text-2xl font-semibold font-sans border-2 border-white border-opacity-25 rounded-lg w-fit p-7 mx-auto'>
                 <div>Username :  {me.username} </div>

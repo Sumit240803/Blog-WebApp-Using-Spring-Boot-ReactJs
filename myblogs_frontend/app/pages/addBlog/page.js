@@ -1,15 +1,22 @@
 "use client";
 import Header from '@/app/components/Header';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const BlogForm = () => {
   const [blog, setBlog] = useState({ content: '', title: '', image: '' });
   const [image, setImage] = useState('');
   const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [loading, setLoading] = useState(false);
-  const user = localStorage.getItem("user");
-  const userimage = JSON.parse(user);
-  const username = localStorage.getItem("username");
+  const[username , setUsername] = useState('');
+  const[userImage , setUserImage] = useState('');
+  useEffect(()=>{
+    const user = localStorage.getItem("user");
+    if(user){
+      const loggedUser = JSON.parse(user);
+      setUsername(loggedUser.username);
+      setUserImage(loggedUser.avatar);
+    }
+  })
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -70,7 +77,7 @@ const BlogForm = () => {
         setIsImageUploaded(false);
         setImage('');  // Clear image state
       } else {
-        alert('Error submitting the blog.');
+        alert('Error submitting the blog. Try Again after some time.');
       }
     } catch (error) {
       console.error('Error submitting blog:', error);
@@ -80,7 +87,7 @@ const BlogForm = () => {
   return (
     <div className='top-0 m-0'>
       <div className='top-0'>
-        <Header className='top-0' username={username} image={userimage.avatar} />
+        <Header className='top-0' username={username} image={userImage} />
       </div>
       <div className='w-3/4 my-10 mx-auto bg-black text-yellow-200 p-6 border-2 border-green-500 rounded'>
         <h2 className='text-2xl font-bold text-center mb-4'>Add a New Blog</h2>

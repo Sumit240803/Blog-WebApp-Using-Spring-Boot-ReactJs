@@ -41,7 +41,7 @@ const page = () => {
         localStorage.setItem("token" , token);
         router.push("/pages/admin/dashboard");
       }else{
-        setPopMsg("Some Error Occurred :((");
+        setPopMsg("Register as New User or Bad Credentials :((");
         handleOpenPopup();
       }
     } catch (error) {

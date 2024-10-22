@@ -5,19 +5,19 @@ import React, { useEffect, useState } from 'react'
 
 const All = () => {
     const [userName, setUsername] = useState('');
-    const user = localStorage.getItem("user");
-    const image = JSON.parse(user);
-
+    const [userImage , setUserImage] = useState('');
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    if (username) {
-      setUsername(username);
+    const user = localStorage.getItem("user");
+    if (user) {
+      const loggedUser = JSON.parse(user);
+      setUsername(loggedUser.username);
+      setUserImage(loggedUser.avatar)
     }
   }, []);
   return (
     <div>
         <div>
-            <Header username={userName} image={image.avatar}/>
+            <Header username={userName} image={userImage}/>
         </div>
         <div>
             <UserProfile/>
