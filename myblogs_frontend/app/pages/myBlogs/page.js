@@ -5,9 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 const MyBlogs = () => {
     const [userBlog , setUserBlog] = useState([]);
-    const username = localStorage.getItem("username");
-    const user = localStorage.getItem("user");
-    const image = JSON.parse(user);
+    const[user , setUser] = useState(null);
     const userBlogs =async()=>{
 
         try {
@@ -30,12 +28,16 @@ const MyBlogs = () => {
         }
     }
     useEffect(()=>{
+        const user =localStorage.getItem("user");
+        if(user){
+            setUser(JSON.parse(user));
+        }
         userBlogs();
     },[]);
   return (
     <div>
        <div>
-        <Header username={username} image={image.avatar}/>
+        <Header username={user.username} image={user.avatar}/>
        </div>
         <div className='p-4 flex'>
             {userBlog.length>0 ? userBlog.map((blog)=>(
