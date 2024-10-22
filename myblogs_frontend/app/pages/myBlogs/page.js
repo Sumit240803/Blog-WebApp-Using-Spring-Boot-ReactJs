@@ -3,7 +3,7 @@ import Header from '@/app/components/Header';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const MyBlogs = () => {
     const [userBlog , setUserBlog] = useState([]);
     const username = localStorage.getItem("username");
     const user = localStorage.getItem("user");
@@ -50,4 +50,4 @@ const page = () => {
   )
 }
 
-export default page 
+export default MyBlogs 

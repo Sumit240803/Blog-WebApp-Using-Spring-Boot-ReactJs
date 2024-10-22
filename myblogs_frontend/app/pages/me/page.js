@@ -3,7 +3,7 @@ import Header from '@/app/components/Header';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const Me = () => {
     const[me , setMe] = useState(null);
     const[showInput , setShowInput] = useState(false);
     const[image , setImage] = useState('');
@@ -94,4 +94,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Me

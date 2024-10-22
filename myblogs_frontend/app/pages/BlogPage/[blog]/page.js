@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const SingleBlog = () => {
     const [reqBlog, setReqBlog] = useState(null);
     const[userName , setUsername] = useState('');
     const[userImage , setUserImage] = useState('');
@@ -87,5 +87,5 @@ const page = () => {
   )
 }
 
-export default page
+export default SingleBlog
 

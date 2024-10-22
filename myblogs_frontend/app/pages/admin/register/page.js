@@ -4,7 +4,7 @@ import PopupMsg from '@/app/components/PopupMsg';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-const page = () => {
+const AdminRegister = () => {
   const[formData , setFormData] = useState({username : '',email : '' , password : ''});
   const router = useRouter();
   const handleChange =(event)=>{
@@ -117,4 +117,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AdminRegister;

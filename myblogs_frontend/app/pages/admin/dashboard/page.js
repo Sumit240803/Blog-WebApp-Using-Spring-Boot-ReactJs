@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
-const page = () => {
+const DashBoard = () => {
     const[userComp ,setUserCom] = useState(false);
     const[blogComp ,setBlogCom] = useState(false);
     const[commComp ,setCommCom] = useState(false);
@@ -312,4 +312,4 @@ const page = () => {
     )
 }
 
-export default page
+export default DashBoard

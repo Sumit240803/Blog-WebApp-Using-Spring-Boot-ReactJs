@@ -16,7 +16,7 @@ const BlogForm = () => {
       setUsername(loggedUser.username);
       setUserImage(loggedUser.avatar);
     }
-  })
+  },[]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

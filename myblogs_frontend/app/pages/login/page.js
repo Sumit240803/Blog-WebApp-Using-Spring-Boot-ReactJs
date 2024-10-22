@@ -4,7 +4,7 @@ import PopupMsg from '@/app/components/PopupMsg';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-const page = () => {
+const Login = () => {
   const router = useRouter();
   const[formData , setFormData] = useState({username : '' , password : ''});
 
@@ -111,4 +111,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Login;

@@ -3,7 +3,7 @@ import Header from '@/app/components/Header';
 import PopupMsg from '@/app/components/PopupMsg';
 import React, { useState } from 'react';
 
-const page = () => {
+const UserRegister = () => {
   const[formData , setFormData] = useState({name :'' ,username : '',email : '' , password : ''});
   const handleChange =(event)=>{
     const {name , value} = event.target;
@@ -133,4 +133,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserRegister;
