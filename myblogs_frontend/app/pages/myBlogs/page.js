@@ -5,7 +5,8 @@ import React, { useEffect, useState } from 'react'
 
 const MyBlogs = () => {
     const [userBlog , setUserBlog] = useState([]);
-    const[user , setUser] = useState(null);
+    const[username , setUsername] = useState('');
+    const[userImage , setUserImage] = useState('');
     const userBlogs =async()=>{
 
         try {
@@ -28,16 +29,18 @@ const MyBlogs = () => {
         }
     }
     useEffect(()=>{
-        const user =localStorage.getItem("user");
-        if(user){
-            setUser(JSON.parse(user));
-        }
+        const user = localStorage.getItem("user");
+    if(user){
+      const loggedUser = JSON.parse(user);
+      setUsername(loggedUser.username);
+      setUserImage(loggedUser.avatar);
+    }
         userBlogs();
     },[]);
   return (
     <div>
        <div>
-        <Header username={user.username} image={user.avatar}/>
+        <Header username={username} image={userImage}/>
        </div>
         <div className='p-4 flex'>
             {userBlog.length>0 ? userBlog.map((blog)=>(
